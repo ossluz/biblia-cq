@@ -1,0 +1,430 @@
+:root {
+    --primary: #1a5f7a;
+    --secondary: #159895;
+    --bg-color: #f4f6f8;
+    --text: #2c3e50;
+    --highlight: #d35400; 
+    
+/* ==== NOVO: PAINEL DE PROGRESSO ==== */
+.user-progress-card {
+    background: var(--card-bg);
+    border: 2px solid var(--primary);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(26, 95, 122, 0.2);
+}
+
+    /* NOVO: VARIÁVEIS DE ACESSIBILIDADE */
+    --base-font-size: 1rem;
+    --card-bg: #ffffff;
+    --border-color: #dddddd;
+    --verse-hover: rgba(26, 95, 122, 0.1);
+}
+
+/* NOVO: PALETA DE CORES MODO NOTURNO (DARK MODE) */
+[data-theme="dark"] {
+    --primary: #5bc0eb;      /* Azul mais claro para não sumir no fundo preto */
+    --secondary: #20c2be;
+    --bg-color: #121212;     /* Fundo bem escuro */
+    --text: #e0e0e0;         /* Letras cinza claro (branco puro dói o olho) */
+    --card-bg: #1e1e1e;      /* Caixas um pouco mais claras que o fundo */
+    --border-color: #333333;
+    --highlight: #ff8a65;    /* Laranja do dicionário mais vibrante */
+    --verse-hover: rgba(255, 255, 255, 0.05);
+}
+
+body { 
+    font-family: 'Segoe UI', Roboto, sans-serif; 
+    margin: 0; 
+    color: var(--text); 
+    background-color: var(--bg-color); 
+    background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png'); 
+    background-blend-mode: multiply; 
+    font-size: var(--base-font-size);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+[data-theme="dark"] body {
+    background-blend-mode: overlay; /* Ajusta a textura no modo noturno */
+}
+
+header { background: var(--primary); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000; }
+.header-tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.accessibility-tools { display: flex; gap: 5px; margin-right: 15px; border-right: 1px solid rgba(255,255,255,0.3); padding-right: 15px; }
+
+.app-title { font-weight: bold; font-size: 1.4rem; }
+.btn-nav { padding: 8px; border: none; background: rgba(255,255,255,0.2); color: white; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.btn-admin { background: var(--secondary); }
+.container { display: flex; height: calc(100vh - 65px); }
+
+nav { width: 280px; background: var(--card-bg); border-right: 1px solid var(--border-color); overflow-y: auto; padding: 15px; transition: background-color 0.3s; }
+.nav-section h3 { font-size: calc(var(--base-font-size) * 0.9); color: #7f8c8d; text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+.book-item { padding: 8px 12px; cursor: pointer; border-radius: 4px; font-size: calc(var(--base-font-size) * 0.9); display: flex; justify-content: space-between; transition: background 0.2s; }
+.book-item:hover { background: var(--verse-hover); }
+.chapter-badge { font-size: calc(var(--base-font-size) * 0.7); background: var(--border-color); padding: 2px 6px; border-radius: 10px; }
+.btn-continue { width: 100%; background: var(--secondary); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; margin-bottom: 15px; font-weight: bold; }
+.btn-continue:hover { background: #12827f; }
+
+main { flex: 1; overflow-y: auto; padding: 20px; scroll-behavior: smooth; }
+.chapter-header { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+
+.audio-controls { background: var(--card-bg); padding: 10px; border-radius: 8px; display: flex; gap: 10px; align-items: center; margin-bottom: 20px; border: 1px solid var(--border-color); flex-wrap: wrap; transition: background 0.3s; }
+.audio-controls select, .audio-controls button { padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text); cursor: pointer; }
+.btn-play-chap { background: var(--primary) !important; color: white !important; border: none !important; font-weight: bold; }
+.btn-stop-audio { background: #e74c3c !important; color: white !important; border: none !important; font-weight: bold; }
+
+.verse-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 15px; border-bottom: 1px solid var(--border-color); border-radius: 6px; transition: background-color 0.3s ease, border-left 0.3s ease; }
+.verse-num { font-weight: bold; color: var(--primary); margin-right: 8px; font-size: calc(var(--base-font-size) * 0.8); }
+
+/* CONTROLE DE TAMANHO DINÂMICO */
+.text-pt { color: var(--text); line-height: 1.6; font-size: calc(var(--base-font-size) * 0.95); }
+.text-cq { color: var(--primary); font-style: italic; line-height: 1.6; font-size: calc(var(--base-font-size) * 1.1); }
+
+.original-term { font-weight: bold; color: var(--highlight); font-style: normal; }
+.audio-btn { background: none; border: none; cursor: pointer; font-size: 1.2rem; opacity: 0.5; margin-right: 5px; }
+.audio-btn:hover { opacity: 1; }
+
+.active-reading { background-color: var(--verse-hover); border-left: 4px solid var(--primary); transform: scale(1.01); }
+
+.chapter-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px dashed var(--border-color); }
+.btn-chap-nav { background: var(--primary); color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.3s ease, transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.btn-chap-nav:hover { filter: brightness(1.2); transform: translateY(-2px); }
+
+.card-box { max-width: 800px; margin: 40px auto; background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid var(--border-color); transition: background 0.3s; }
+
+/* Entradas do Admin se adaptam ao Dark Mode */
+textarea, input, select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; background: var(--bg-color); color: var(--text); margin-bottom: 10px; box-sizing: border-box; }
+textarea { min-height: 200px; font-family: monospace; }
+.controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+
+.btn-primary { padding: 12px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-restore { background: #555; }
+.hidden { display: none !important; }
+
+#reminder-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; }
+#reminder-modal.active { display: flex; }
+
+.study-card { background: var(--card-bg); padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid var(--secondary); border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s; }
+.study-card:hover { background: var(--verse-hover); }
+.study-tag { font-size: calc(var(--base-font-size) * 0.7); background: var(--border-color); padding: 3px 8px; border-radius: 10px; text-transform: uppercase; color: var(--text); font-weight: bold; }
+.hymn-card { background: var(--card-bg); padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
+.hymn-audio-player { width: 100%; margin-top: 15px; border-radius: 8px; }
+
+.hymn-lyrics { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); }
+.hymn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 6px 0; border-bottom: 1px dashed var(--border-color); }
+.hymn-row:last-child { border-bottom: none; }
+.hymn-row .text-pt { font-size: calc(var(--base-font-size) * 0.95); color: var(--text); }
+.hymn-row .text-cq { font-size: calc(var(--base-font-size) * 1.05); color: var(--primary); }
+
+.ref-tooltip { position: relative; display: inline-block; cursor: pointer; margin-right: 5px; font-size: 0.9rem; opacity: 0.7; }
+.ref-tooltip:hover { opacity: 1; }
+.ref-tooltip .tooltip-text { visibility: hidden; width: max-content; max-width: 250px; background-color: var(--primary); color: #fff; text-align: left; border-radius: 6px; padding: 10px; position: absolute; z-index: 10; bottom: 150%; left: 50%; transform: translateX(-50%); opacity: 0; transition: opacity 0.3s; font-size: 0.85rem; font-weight: normal; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+.cq-word { cursor: pointer; transition: background-color 0.2s, color 0.2s; border-radius: 3px; padding: 0 2px; }
+.cq-word:hover { background-color: var(--verse-hover); }
+.word-highlight { background-color: var(--highlight) !important; color: white !important; font-style: normal; }
+
+#dict-toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: #2c3e50; color: white; padding: 15px 30px; border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 3000;
+    display: flex; align-items: center; gap: 15px; font-size: calc(var(--base-font-size) * 1.1);
+    opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#dict-toast.show { opacity: 1; visibility: visible; bottom: 40px; }
+
+@media (max-width: 768px) {
+    .header-tools { width: 100%; justify-content: space-between; margin-top: 10px; }
+    .accessibility-tools { margin-right: 0; border-right: none; padding-right: 0; }
+    .verse-row, .hymn-row { grid-template-columns: 1fr; gap: 5px; padding: 10px; }
+    .container { flex-direction: column; }
+    nav { width: 100%; height: 250px; border-right: none; border-bottom: 1px solid var(--border-color); }
+}
+
+/* ==== NOVO: ESTILO DOS TEMAS (O QUE A BÍBLIA DIZ) ==== */
+.theme-pill {
+    background: var(--card-bg);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: calc(var(--base-font-size) * 1);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.theme-pill:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ==== NOVO: PÁGINA INICIAL (DASHBOARD) ==== */
+.dashboard-header { text-align: center; margin-bottom: 30px; }
+.dashboard-header h2 { color: var(--primary); font-size: 2.2rem; margin-bottom: 10px; }
+.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.dash-card { 
+    background: var(--card-bg); 
+    border: 1px solid var(--border-color); 
+    padding: 30px 20px; 
+    border-radius: 12px; 
+    text-align: center; 
+    cursor: pointer; 
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+}
+.dash-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); 
+    background: var(--verse-hover); 
+}
+.dash-icon { font-size: 3.5rem; margin-bottom: 15px; }
+.dash-card h3 { color: var(--primary); margin: 0 0 10px 0; font-size: 1.3rem; }
+.dash-card p { color: var(--text); opacity: 0.8; font-size: 0.95rem; margin: 0; line-height: 1.4; }
+
+/* ==== NOVO: ESTILO DOS RESULTADOS DE BUSCA ==== */
+.result-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    border-left: 4px solid #e67e22;
+}
+.result-card:hover {
+    background: var(--verse-hover);
+    transform: translateX(5px);
+}
+.result-card h4 {
+    margin: 0 0 8px 0;
+    color: var(--primary);
+    font-size: calc(var(--base-font-size) * 1.1);
+}
+.result-card p {
+    margin: 0;
+    color: var(--text);
+    font-size: calc(var(--base-font-size) * 0.95);
+    line-height: 1.5;
+}
+.search-highlight {
+    background-color: var(--highlight);
+    color: white;
+    padding: 0 3px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+
+/* ==== NOVO: ESTILO DO QUIZ BÍBLICO ==== */
+.quiz-options-container { display: flex; flex-direction: column; gap: 15px; }
+.quiz-btn {
+    background: var(--bg-color);
+    color: var(--text);
+    border: 2px solid var(--border-color);
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.quiz-btn:hover { background: var(--verse-hover); border-color: var(--primary); }
+.quiz-btn:disabled { cursor: not-allowed; opacity: 0.8; }
+.quiz-correct { background: #27ae60 !important; color: white !important; border-color: #27ae60 !important; }
+.quiz-wrong { background: #e74c3c !important; color: white !important; border-color: #e74c3c !important; }
+
+/* ==== NOVO: ESTILO DICIONÁRIO E NOTAS ==== */
+.dict-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+.dict-card:hover { transform: scale(1.05); border-color: var(--primary); }
+.dict-cq { font-size: 1.4rem; color: var(--primary); font-weight: bold; font-style: italic; display: block; margin-bottom: 5px; }
+.dict-pt { font-size: 1rem; color: var(--text); display: block; opacity: 0.9; }
+
+.note-card {
+    background: var(--card-bg);
+    border-left: 5px solid #f39c12;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.note-ref { font-weight: bold; color: var(--primary); font-size: 1.2rem; cursor: pointer; text-decoration: underline; }
+.note-ref:hover { color: var(--secondary); }
+.note-date { font-size: 0.8rem; color: var(--text); opacity: 0.6; display: block; margin-bottom: 10px; }
+.note-text { font-size: 1.1rem; line-height: 1.6; color: var(--text); }
+.note-delete { background: none; border: none; color: #e74c3c; cursor: pointer; float: right; font-size: 1.2rem; }
+
+/* ==== NOVO: ESTILO INTERLINEAR ==== */
+.interlinear-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+.interlinear-word { display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.05); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); transition: background 0.2s; }
+.interlinear-word:hover { background: var(--verse-hover); border-color: var(--primary); }
+.int-cq { font-weight: bold; color: var(--primary); font-size: calc(var(--base-font-size) * 1.15); margin-bottom: 4px; }
+.int-pt { font-size: calc(var(--base-font-size) * 0.85); color: var(--text); opacity: 0.9; }
+
+/* ==== NOVO: ESTILO FLASHCARDS (VIRADA 3D) ==== */
+.flashcards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.flashcard { background: transparent; perspective: 1000px; height: 160px; cursor: pointer; position: relative; }
+.flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 12px; }
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 12px; padding: 15px; box-sizing: border-box; }
+.flashcard-front { background-color: var(--card-bg); border: 2px solid var(--primary); color: var(--primary); }
+.flashcard-front span { font-size: 1.6rem; font-weight: bold; font-style: italic; }
+.flashcard-front p { font-size: 0.8rem; color: var(--text); opacity: 0.6; margin-top: 10px; }
+.flashcard-back { background-color: var(--primary); color: white; transform: rotateY(180deg); border: 2px solid var(--primary); }
+.flashcard-back span { font-size: 1.4rem; font-weight: bold; }
+.btn-flashcard-remove { position: absolute; top: -10px; right: -10px; background: #e74c3c; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-weight: bold; cursor: pointer; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+/* ==== NOVO: ESTILO DO CIRÍLICO OCULTO NOS ESTUDOS ==== */
+.cyrillic-block {
+    margin-top: 10px;
+    font-style: normal;
+    color: #7f8c8d;
+    font-size: calc(var(--base-font-size) * 1.2);
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.03);
+    border-left: 3px solid var(--secondary);
+    border-radius: 0 6px 6px 0;
+}
+.btn-toggle-cyr {
+    background: none;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 5px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    transition: all 0.2s;
+    vertical-align: middle;
+}
+.btn-toggle-cyr:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* ==== NOVO: ESTILO DO MARCA-TEXTO E OFENSIVA ==== */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.hl-wrapper {
+    display: block;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+/* Cores do Marca Texto (Translucidas para não sumir o texto) */
+.hl-yellow { background-color: rgba(241, 196, 15, 0.3); }
+.hl-green { background-color: rgba(46, 204, 113, 0.3); }
+.hl-blue { background-color: rgba(52, 152, 219, 0.3); }
+.hl-pink { background-color: rgba(232, 67, 147, 0.3); }
+
+[data-theme="dark"] .hl-yellow { background-color: rgba(241, 196, 15, 0.2); }
+[data-theme="dark"] .hl-green { background-color: rgba(46, 204, 113, 0.2); }
+[data-theme="dark"] .hl-blue { background-color: rgba(52, 152, 219, 0.2); }
+[data-theme="dark"] .hl-pink { background-color: rgba(232, 67, 147, 0.2); }
+
+/* ==== NOVO: ESTILO DO MODO FOCO ==== */
+.focus-mode header { display: none; }
+.focus-mode #sidebar { display: none; }
+.focus-mode .audio-controls { display: none !important; }
+.focus-mode .chapter-header select { display: none; }
+.focus-mode .chapter-header h2 { font-size: 2rem; text-align: center; width: 100%; margin-bottom: 20px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+.focus-mode .text-cq { display: none; }
+.focus-mode .verse-row { grid-template-columns: 1fr; border-bottom: none; margin-bottom: 10px; padding: 5px 15px; }
+.focus-mode .text-pt { font-size: calc(var(--base-font-size) * 1.2); line-height: 1.8; }
+.focus-mode .audio-btn { display: none; }
+.focus-mode .ref-tooltip { display: none; }
+.focus-mode #content { padding: 40px 10vw; max-width: 1200px; margin: 0 auto; }
+
+/* ==== NOVO: ESTILO DO ÍNDICE E TAGS ==== */
+.index-book-btn {
+    background: var(--verse-hover); color: var(--text); border: 1px solid var(--border-color);
+    padding: 12px 5px; border-radius: 6px; text-align: center; cursor: pointer;
+    font-weight: bold; font-size: 0.9rem; transition: all 0.2s;
+}
+.index-book-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+
+.btn-tag {
+    background: var(--verse-hover); color: var(--text); border: 1px solid var(--border-color);
+    padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; transition: 0.2s;
+}
+.btn-tag.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+.note-tag-label {
+    display: inline-block; font-size: 0.75rem; padding: 3px 8px; border-radius: 12px;
+    background: var(--secondary); color: white; margin-bottom: 8px; font-weight: bold;
+}
+
+/* Efeito de clique e transição do Menu Sanfona */
+.nav-section h3 {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+}
+.nav-section h3:hover {
+    color: var(--primary);
+}
+.nav-section h3::after {
+    content: "▾";
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+.nav-section.collapsed h3::after {
+    transform: rotate(-90deg);
+}
+.nav-section.collapsed > div {
+    display: none;
+}
+
+/* MÁGICA DA SELEÇÃO DE VERSÍCULOS */
+.text-pt { transition: background 0.2s; border-radius: 6px; padding: 5px; }
+.text-cq { transition: background 0.2s; border-radius: 6px; padding: 5px; }
+.v-text { cursor: pointer; }
+
+/* Seleção PT + CQ (Verde suave) */
+.selected-both .text-pt { background-color: rgba(46, 204, 113, 0.2); }
+.selected-both .text-cq { background-color: rgba(46, 204, 113, 0.2); }
+
+/* Seleção SÓ CQ (Laranja suave) */
+.selected-cq .text-cq { background-color: rgba(230, 126, 34, 0.2); }
+
+/* BOTÃO DE REAÇÃO (CURTIR) */
+.btn-reaction {
+    background: var(--verse-hover); border: 1px solid var(--border-color); color: var(--text);
+    padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold;
+    display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s;
+}
+.btn-reaction:hover { transform: scale(1.05); }
+.btn-reaction.liked { background: #ff7675; color: white; border-color: #ff7675; }
+
+/* BARRA DE REAÇÕES ESTILO DISCORD */
+.reaction-bar { display: flex; gap: 10px; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 8px; width: max-content; margin: 15px auto; border: 1px solid var(--border-color); }
+.react-btn { background: transparent; border: 1px solid transparent; border-radius: 8px; padding: 5px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; opacity: 0.6; transition: all 0.2s; filter: grayscale(100%); font-size: 1.1rem; color: var(--text); }
+.react-btn:hover { opacity: 1; filter: grayscale(0%); background: rgba(0,0,0,0.05); transform: scale(1.1); }
+.react-btn.active { opacity: 1; filter: grayscale(0%); background: rgba(46, 204, 113, 0.1); border-color: #2ecc71; color: var(--text); }

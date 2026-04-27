@@ -1,0 +1,18 @@
+{
+  "name": "Bíblia Sagrada CQ",
+  "short_name": "Bíblia CQ",
+  "description": "Bíblia de Estudo com suporte ao Cito Qasveheot",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#2c3e50",
+  "theme_color": "#2c3e50",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icone.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
